@@ -1,5 +1,5 @@
 /*
-const mongoose = require('mongoose');
+
 
 //Connect to MongoDB
 
@@ -13,21 +13,26 @@ mongoose.connection.once('open',function()
     console.log('Connection error:',error);
 });
 */
+const mongoose = require("mongoose");
+// const MongoClient = require("mongodb").MongoClient;
 
+const uri =
+  "mongodb+srv://bryan:kuuga@cluster0-8y4uv.mongodb.net/test?retryWrites=true&w=majority";
 
-const MongoClient = require('mongodb').MongoClient;
-
-const uri = "mongodb+srv://bryan:kuuga@cluster0-8y4uv.mongodb.net/test?retryWrites=true&w=majority";
-
-const client = new MongoClient(uri, { useNewUrlParser: true });
-
-client.connect(err => {
-  const collection = client.db("restaurant").collection("user");
-  // perform actions on the collection object
-  console.log("connected");
-  client.close();
-});
-
+// const client = new MongoClient(uri, { useNewUrlParser: true });
+const connectDB = async () => {
+  try {
+    await mongoose.connect(uri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log("MongoDb connected...");
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
+  }
+};
+module.exports = connectDB;
 /*
 
 const mongoose = require('mongoose');

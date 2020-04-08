@@ -1,5 +1,15 @@
-const express = require('express');
+const express = require("express");
 
-const mongoDB = require('mongoDB');
+const connectDB = require("./src/Connection");
 
-const connect = require('./src/connection');
+const app = express();
+
+connectDB();
+
+app.use(express.json({ extended: false }));
+
+const PORT = process.env.PORT || 8080;
+
+app.listen(PORT, () => {
+  console.log("Server started on port", PORT);
+});
